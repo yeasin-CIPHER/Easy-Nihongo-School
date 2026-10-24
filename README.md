@@ -1,4 +1,5 @@
 # 🎌 Easy Nihongo School
+Preview : https://easynihongoschool.vercel.app/
 
 A responsive Japanese learning platform targeting Grammar and Kanji with Bangla explanations, built with Next.js and Supabase.
 
