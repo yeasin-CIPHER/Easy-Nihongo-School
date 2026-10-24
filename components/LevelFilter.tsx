@@ -18,8 +18,8 @@ type Item = {
   meaning_en?: string | null;
   onyomi?: string | null;
   kunyomi?: string | null;
-  word: string;
-  reading: string;
+  word?: string | null;
+  reading?: string | null;
   part_of_speech?: string | null;
   example_japanese?: string | null;
   example_reading?: string | null;
