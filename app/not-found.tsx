@@ -1,0 +1,2 @@
+import Link from 'next/link';
+export default function NotFound(){return <section className="container-page flex min-h-[55vh] flex-col items-center justify-center py-16 text-center"><p className="japanese text-7xl text-vermilion">404</p><h1 className="mt-4 text-2xl font-extrabold">এই lesson খুঁজে পাওয়া যায়নি</h1><p className="mt-3 text-sm text-stone-500">Lesson সরানো হয়েছে অথবা ঠিকানা ভুল হয়েছে।</p><Link className="btn mt-6" href="/">হোম পেজে ফিরুন</Link></section>}

@@ -1,0 +1,106 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+:root {
+  color-scheme: light;
+}
+* {
+  box-sizing: border-box;
+}
+html {
+  scroll-behavior: smooth;
+}
+body {
+  margin: 0;
+  background: #fbfaf7;
+  color: #17211d;
+  font-family: Arial, Helvetica, sans-serif;
+}
+::selection {
+  background: #f3d9d2;
+  color: #17211d;
+}
+.japanese {
+  font-family: "Yu Gothic", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+}
+.container-page {
+  width: min(1120px, calc(100% - 40px));
+  margin-inline: auto;
+}
+.eyebrow {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
+  color: #c94735;
+}
+.card {
+  background: white;
+  border: 1px solid #e8e5dd;
+  border-radius: 18px;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(29, 38, 31, 0.06);
+}
+.field {
+  width: 100%;
+  border: 1px solid #dedbd2;
+  border-radius: 10px;
+  background: white;
+  padding: 11px 13px;
+  color: #17211d;
+  outline: none;
+}
+.field:focus {
+  border-color: #c94735;
+  box-shadow: 0 0 0 3px rgba(201, 71, 53, 0.1);
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 999px;
+  background: #c94735;
+  color: white;
+  padding: 11px 17px;
+  font-size: 14px;
+  font-weight: 700;
+  transition: opacity 0.2s;
+}
+.btn:hover {
+  opacity: 0.88;
+}
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 999px;
+  border: 1px solid #dedbd2;
+  padding: 10px 16px;
+  font-size: 14px;
+  font-weight: 700;
+  background: white;
+}
+.prose-bn {
+  line-height: 1.9;
+  white-space: pre-wrap;
+}
+.btn1 {
+    display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 999px;
+  background: #43b1e1;
+  color: white;
+  padding: 11px 17px;
+  font-size: 14px;
+  font-weight: 700;
+  transition: opacity 0.2s;
+}
