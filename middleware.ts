@@ -1,12 +1,37 @@
-import { createServerClient } from '@supabase/ssr';
-import { NextResponse, type NextRequest } from 'next/server';
+import { createServerClient } from "@supabase/ssr";
+import { NextResponse, type NextRequest } from "next/server";
+type CookieOptions = {
+  name: string;
+  value: string;
+  options: Record<string, unknown>;
+};
 export async function middleware(request: NextRequest) {
- const response=NextResponse.next({request});
- const url=process.env.NEXT_PUBLIC_SUPABASE_URL, key=process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
- if(!url||!key) return response;
- const supabase=createServerClient(url,key,{cookies:{getAll:()=>request.cookies.getAll(),setAll:(items)=>items.forEach(({name,value,options})=>{request.cookies.set(name,value);response.cookies.set(name,value,options);})}});
- const {data:{user}}=await supabase.auth.getUser();
- if(request.nextUrl.pathname.startsWith('/admin') && !request.nextUrl.pathname.startsWith('/admin/login') && !user){const target=request.nextUrl.clone();target.pathname='/admin/login';return NextResponse.redirect(target);}
- return response;
+  const response = NextResponse.next({ request });
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL,
+    key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  if (!url || !key) return response;
+  const supabase = createServerClient(url, key, {
+    cookies: {
+      getAll: () => request.cookies.getAll(),
+      setAll: (items: CookieOptions[]) =>
+        items.forEach(({ name, value, options }) => {
+          request.cookies.set(name, value);
+          response.cookies.set(name, value, options);
+        }),
+    },
+  });
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (
+    request.nextUrl.pathname.startsWith("/admin") &&
+    !request.nextUrl.pathname.startsWith("/admin/login") &&
+    !user
+  ) {
+    const target = request.nextUrl.clone();
+    target.pathname = "/admin/login";
+    return NextResponse.redirect(target);
+  }
+  return response;
 }
-export const config={matcher:['/admin/:path*']};
+export const config = { matcher: ["/admin/:path*"] };
