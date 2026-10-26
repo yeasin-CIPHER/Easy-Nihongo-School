@@ -212,14 +212,33 @@ export async function getKanji(): Promise<Kanji[]> {
 }
 
 
+// export async function getAdminContent<T>(
+//   table: "grammar_lessons" | "kanji_lessons",
+// ): Promise<T[]> {
+//   const supabase = createClient();
+//   if (!supabase) return [];
+//   const { data, error } = await supabase
+//     .from(table)
+//     .select("*")
+//     .order("created_at", { ascending: false });
+//   return !error && data ? (data as T[]) : [];
+// }
 export async function getAdminContent<T>(
   table: "grammar_lessons" | "kanji_lessons",
 ): Promise<T[]> {
-  const supabase = createClient();
+  const supabase = await createServerSupabase();
+
   if (!supabase) return [];
+
   const { data, error } = await supabase
     .from(table)
     .select("*")
     .order("created_at", { ascending: false });
-  return !error && data ? (data as T[]) : [];
+
+  if (error) {
+    console.error("Admin content fetch error:", error.message);
+    return [];
+  }
+
+  return (data ?? []) as T[];
 }
