@@ -1,4 +1,5 @@
 import { createServerSupabase } from "@/lib/supabase";
+// import { createClient } from "@/lib/supabase-browser";
 export type Grammar = {
   id: string;
   slug: string;
