@@ -24,7 +24,7 @@ export default async function Home() {
               JLPT-এর প্রতিটি লেভেল পর্যন্ত, নিজের গতিতে।
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <Link className="btn" href="/grammar">
+              <Link className="btn-secondary" href="/grammar">
                 Grammar বুঝি <ArrowUpRight size={16} />
               </Link>
 

@@ -29,7 +29,7 @@ export default function Header() {
           </Link>
 
           <Link
-            className=" btn1 text-stone-500 hover:text-vermilion"
+            className=" btn text-stone-500 hover:text-vermilion"
             href="/kanji"
           >
             Kanji <span aria-hidden>↗</span>

@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useMemo, useState } from "react";
@@ -95,16 +94,21 @@ export default function LevelFilter({
           কোনো ফলাফল পাওয়া যায়নি। অন্য শব্দ বা level দিয়ে চেষ্টা করো।
         </div>
       ) : (
-        <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-4 grid gap-3 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
           {filtered.map((item) => (
             <Link
               key={item.id}
+              // href={item.slug ? `/${type}/${item.slug}` : `/${type}/${item.id}`}
               href={
-                item.slug
-                  ? `/${type}/${item.slug}`
-                  : `/${type}/${item.id}`
+                type === "kanji"
+                  ? `/kanji/${item.slug || item.id}`
+                  : item.slug
+                    ? `/${type}/${item.slug}`
+                    : `/${type}/${item.id}`
               }
-              className="card group flex min-h-48 flex-col p-5"
+              className={`card group flex flex-col p-3 transition hover:-translate-y-1 ${
+                type === "kanji" ? "min-h-36" : "min-h-48 p-5"
+              }`}
             >
               <div className="flex items-center justify-between">
                 <span className="rounded-full bg-[#f8ece8] px-3 py-1 text-xs font-extrabold text-vermilion">
@@ -146,9 +150,7 @@ export default function LevelFilter({
                   <h3 className="mt-3 font-bold">{item.meaning_bn}</h3>
                   <p className="mt-1 text-sm text-stone-500">
                     {item.meaning_en || ""}
-                    {item.part_of_speech
-                      ? ` · ${item.part_of_speech}`
-                      : ""}
+                    {item.part_of_speech ? ` · ${item.part_of_speech}` : ""}
                   </p>
                   {item.example_japanese && (
                     <p className="japanese mt-3 line-clamp-2 text-sm leading-6">

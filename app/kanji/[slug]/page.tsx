@@ -1,3 +1,89 @@
-import Link from 'next/link';import {notFound} from 'next/navigation';import {getKanji} from '@/lib/content';
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import { getKanji } from "@/lib/content";
 // export async function generateStaticParams(){return (await getKanji()).map(x=>({slug:x.slug}));}
-export default async function KanjiDetail({params}:{params:Promise<{slug:string}>}){const {slug}=await params;const item=(await getKanji()).find(x=>x.slug===slug);if(!item)notFound();return <article className="container-page max-w-4xl py-12 sm:py-16"><Link href="/kanji" className="text-sm font-bold text-stone-500 hover:text-vermilion">← সব Kanji</Link><div className="mt-8 flex items-center gap-3"><span className="rounded-full bg-[#e8efe5] px-3 py-1 text-xs font-extrabold text-moss">{item.level}</span><span className="text-xs text-stone-400">KANJI STUDY</span></div><div className="mt-5 grid gap-5 sm:grid-cols-[220px_1fr]"><div className="flex min-h-56 items-center justify-center rounded-3xl border border-line bg-white"><span className="japanese text-8xl font-medium">{item.character}</span></div><div className="flex flex-col justify-center rounded-3xl bg-white p-6 shadow-soft"><h1 className="text-3xl font-extrabold">{item.meaning_bn}</h1><p className="mt-2 text-stone-500">{item.meaning_en}</p><div className="mt-6 grid grid-cols-2 gap-4"><div className="rounded-xl bg-paper p-4"><p className="text-xs font-bold text-stone-400">ONYOMI · 音読み</p><p className="japanese mt-2 text-lg font-semibold">{item.onyomi||'—'}</p></div><div className="rounded-xl bg-paper p-4"><p className="text-xs font-bold text-stone-400">KUNYOMI · 訓読み</p><p className="japanese mt-2 text-lg font-semibold">{item.kunyomi||'—'}</p></div></div></div></div><section className="mt-9"><h2 className="text-2xl font-extrabold">উদাহরণ শব্দ</h2><div className="mt-4 grid gap-3 sm:grid-cols-2">{item.examples?.map((ex,i)=><div key={i} className="rounded-2xl border border-line bg-white p-5"><p className="japanese text-2xl font-bold">{ex.word}</p><p className="japanese mt-1 text-sm text-stone-500">{ex.reading}</p><p className="mt-3 text-sm font-semibold text-moss">{ex.meaning_bn}</p></div>)}</div></section><div className="mt-10"><Link href="/kanji" className="btn-secondary">← Kanji তালিকায় ফিরুন</Link></div></article>}
+export default async function KanjiDetail({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+  const kanjiList = await getKanji();
+
+  const item = kanjiList.find(
+    (x) =>
+      x.slug === slug ||
+      x.character === decodeURIComponent(slug) ||
+      x.id === slug,
+  );
+  if (!item) notFound();
+  return (
+    <article className="container-page max-w-4xl py-12 sm:py-16">
+      <Link
+        href="/kanji"
+        className="text-sm font-bold text-stone-500 hover:text-vermilion"
+      >
+        ← সব Kanji
+      </Link>
+      <div className="mt-8 flex items-center gap-3">
+        <span className="rounded-full bg-[#e8efe5] px-3 py-1 text-xs font-extrabold text-moss">
+          {item.level}
+        </span>
+        <span className="text-xs text-stone-400">KANJI STUDY</span>
+      </div>
+      <div className="mt-5 grid gap-5 sm:grid-cols-[220px_1fr]">
+        <div className="flex min-h-56 items-center justify-center rounded-3xl border border-line bg-white">
+          <span className="japanese text-8xl font-medium">
+            {item.character}
+          </span>
+        </div>
+        <div className="flex flex-col justify-center rounded-3xl bg-white p-6 shadow-soft">
+          <h1 className="text-3xl font-extrabold">{item.meaning_bn}</h1>
+          <p className="mt-2 text-stone-500">{item.meaning_en}</p>
+          <div className="mt-6 grid grid-cols-2 gap-4">
+            <div className="rounded-xl bg-paper p-4">
+              <p className="text-xs font-bold text-stone-400">
+                ONYOMI · 音読み
+              </p>
+              <p className="japanese mt-2 text-lg font-semibold">
+                {item.onyomi || "—"}
+              </p>
+            </div>
+            <div className="rounded-xl bg-paper p-4">
+              <p className="text-xs font-bold text-stone-400">
+                KUNYOMI · 訓読み
+              </p>
+              <p className="japanese mt-2 text-lg font-semibold">
+                {item.kunyomi || "—"}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <section className="mt-9">
+        <h2 className="text-2xl font-extrabold">উদাহরণ শব্দ</h2>
+        <div className="mt-4 grid gap-3 sm:grid-cols-2">
+          {item.examples?.map((ex, i) => (
+            <div
+              key={i}
+              className="rounded-2xl border border-line bg-white p-5"
+            >
+              <p className="japanese text-2xl font-bold">{ex.word}</p>
+              <p className="japanese mt-1 text-sm text-stone-500">
+                {ex.reading}
+              </p>
+              <p className="mt-3 text-sm font-semibold text-moss">
+                {ex.meaning_bn}
+              </p>
+            </div>
+          ))}
+        </div>
+      </section>
+      <div className="mt-10">
+        <Link href="/kanji" className="btn-secondary">
+          ← Kanji তালিকায় ফিরুন
+        </Link>
+      </div>
+    </article>
+  );
+}
