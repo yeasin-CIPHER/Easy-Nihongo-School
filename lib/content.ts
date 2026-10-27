@@ -12,6 +12,8 @@ export type Grammar = {
   examples: { japanese: string; reading: string; meaning_bn: string }[];
   published: boolean;
   created_at?: string;
+  lesson_number: number;
+  sort_order: number;
 };
 export type Kanji = {
   id: string;
@@ -27,75 +29,75 @@ export type Kanji = {
   created_at?: string;
 };
 
-export const sampleGrammar: Grammar[] = [
-  {
-    id: "sample-g1",
-    slug: "wa-desu",
-    title: "です — পরিচয় ও ভদ্র বাক্য",
-    pattern: "N は N です",
-    level: "N5",
-    summary: "কোনো ব্যক্তি বা বস্তুকে পরিচয় করিয়ে দিতে ব্যবহৃত হয়।",
-    explanation_bn:
-      "「です」 বাক্যকে ভদ্র করে। 「は」 এখানে বিষয় নির্দেশ করে; এর উচ্চারণ “wa”।",
-    formation: "নাম + は + নাম/বিশেষণ + です",
-    examples: [
-      {
-        japanese: "わたしは がくせいです。",
-        reading: "わたしは がくせいです。",
-        meaning_bn: "আমি একজন শিক্ষার্থী।",
-      },
-      {
-        japanese: "これは ほんです。",
-        reading: "これは ほんです。",
-        meaning_bn: "এটি একটি বই।",
-      },
-    ],
-    published: true,
-  },
-  {
-    id: "sample-g2",
-    slug: "te-kudasai",
-    title: "てください — অনুরোধ করা",
-    pattern: "て-form + ください",
-    level: "N5",
-    summary: "ভদ্রভাবে কাউকে কিছু করতে অনুরোধ করতে ব্যবহৃত হয়।",
-    explanation_bn:
-      "ক্রিয়ার て-form-এর পরে 「ください」 বসালে “দয়া করে … করুন” অর্থ হয়।",
-    formation: "ক্রিয়ার て-form + ください",
-    examples: [
-      {
-        japanese: "もういちど いってください。",
-        reading: "もういちど いってください。",
-        meaning_bn: "দয়া করে আরেকবার বলুন।",
-      },
-      {
-        japanese: "ここに なまえを かいてください。",
-        reading: "ここに なまえを かいてください。",
-        meaning_bn: "দয়া করে এখানে নাম লিখুন।",
-      },
-    ],
-    published: true,
-  },
-  {
-    id: "sample-g3",
-    slug: "ta-koto-ga-arimasu",
-    title: "たことがあります — অভিজ্ঞতা",
-    pattern: "Vた + ことがあります",
-    level: "N4",
-    summary: "আগে কোনো কাজ করার অভিজ্ঞতা বোঝায়।",
-    explanation_bn:
-      "অতীতে কোনো কাজ করেছেন কি না বা অভিজ্ঞতা আছে কি না বলতে এই গঠন ব্যবহার করা হয়।",
-    formation: "ক্রিয়ার た-form + ことがあります",
-    examples: [
-      {
-        japanese: "にほんへ いったことがあります。",
-        reading: "にほんへ いったことがあります。",
-        meaning_bn: "জাপানে যাওয়ার অভিজ্ঞতা আমার আছে।",
-      },
-    ],
-    published: true,
-  },
-];
+// export const sampleGrammar: Grammar[] = [
+//   {
+//     id: "sample-g1",
+//     slug: "wa-desu",
+//     title: "です — পরিচয় ও ভদ্র বাক্য",
+//     pattern: "N は N です",
+//     level: "N5",
+//     summary: "কোনো ব্যক্তি বা বস্তুকে পরিচয় করিয়ে দিতে ব্যবহৃত হয়।",
+//     explanation_bn:
+//       "「です」 বাক্যকে ভদ্র করে। 「は」 এখানে বিষয় নির্দেশ করে; এর উচ্চারণ “wa”।",
+//     formation: "নাম + は + নাম/বিশেষণ + です",
+//     examples: [
+//       {
+//         japanese: "わたしは がくせいです。",
+//         reading: "わたしは がくせいです。",
+//         meaning_bn: "আমি একজন শিক্ষার্থী।",
+//       },
+//       {
+//         japanese: "これは ほんです。",
+//         reading: "これは ほんです。",
+//         meaning_bn: "এটি একটি বই।",
+//       },
+//     ],
+//     published: true,
+//   },
+//   {
+//     id: "sample-g2",
+//     slug: "te-kudasai",
+//     title: "てください — অনুরোধ করা",
+//     pattern: "て-form + ください",
+//     level: "N5",
+//     summary: "ভদ্রভাবে কাউকে কিছু করতে অনুরোধ করতে ব্যবহৃত হয়।",
+//     explanation_bn:
+//       "ক্রিয়ার て-form-এর পরে 「ください」 বসালে “দয়া করে … করুন” অর্থ হয়।",
+//     formation: "ক্রিয়ার て-form + ください",
+//     examples: [
+//       {
+//         japanese: "もういちど いってください。",
+//         reading: "もういちど いってください。",
+//         meaning_bn: "দয়া করে আরেকবার বলুন।",
+//       },
+//       {
+//         japanese: "ここに なまえを かいてください。",
+//         reading: "ここに なまえを かいてください。",
+//         meaning_bn: "দয়া করে এখানে নাম লিখুন।",
+//       },
+//     ],
+//     published: true,
+//   },
+//   {
+//     id: "sample-g3",
+//     slug: "ta-koto-ga-arimasu",
+//     title: "たことがあります — অভিজ্ঞতা",
+//     pattern: "Vた + ことがあります",
+//     level: "N4",
+//     summary: "আগে কোনো কাজ করার অভিজ্ঞতা বোঝায়।",
+//     explanation_bn:
+//       "অতীতে কোনো কাজ করেছেন কি না বা অভিজ্ঞতা আছে কি না বলতে এই গঠন ব্যবহার করা হয়।",
+//     formation: "ক্রিয়ার た-form + ことがあります",
+//     examples: [
+//       {
+//         japanese: "にほんへ いったことがあります。",
+//         reading: "にほんへ いったことがあります。",
+//         meaning_bn: "জাপানে যাওয়ার অভিজ্ঞতা আমার আছে।",
+//       },
+//     ],
+//     published: true,
+//   },
+// ];
 export const sampleKanji: Kanji[] = [
   {
     id: "sample-k1",
@@ -160,6 +162,7 @@ export async function getGrammar(): Promise<Grammar[]> {
   const supabase = await createServerSupabase();
 
   if (!supabase) {
+    
     throw new Error("Supabase environment variables are missing.");
   }
 
